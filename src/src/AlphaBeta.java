@@ -1,6 +1,22 @@
 package src;
 
 public class AlphaBeta{
+    private int[] gameState;
+    private boolean minMax;
+    private  boolean player;
+    public AlphaBeta(int[] gameState, boolean minMax, boolean player){
+        this.gameState = gameState;
+        this.minMax = minMax;
+        this.player = player;
+    }
+
+
+    public int runAlphaBeta(int alpha, int beta){
+
+        return 1;
+    }
+
+
 
 }
 

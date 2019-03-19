@@ -2,6 +2,10 @@ package src;
 import java.util.Scanner;
 
 public class KalahaGame {
+    public int[] getPits() {
+        return pits;
+    }
+
     //this class represents a kalaha game, with functionality for
     //two players taking turns
     //keeping score
@@ -23,10 +27,10 @@ public class KalahaGame {
             pits[i+player2Goal] = 6;
         }
         printGame();
-        while(!gameOver){
+        /*while(!gameOver){
             takeTurn();
             printGame();
-        }
+        }*/
     }
 
     //method that takes a single turn, for one player.
