@@ -22,8 +22,6 @@ public class KalahaGame {
             pits[i] = 6;
             pits[i+player2Goal] = 6;
         }
-        pits[13] = 0;
-        pits[8] = 8;
         printGame();
         while(!gameOver){
             takeTurn();
