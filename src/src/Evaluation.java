@@ -11,13 +11,23 @@ public class Evaluation {
 	}
 	
 	public int evaluateGamestate(){
-		
+
+
 		int points = gamestate[7]-gamestate[13];
-		
+		if(player) {
+			if(gamestate[7] > 36) {
+				points += 100;
+			}
+		} else {
+			if(gamestate[13] > 36){
+				points +=100;
+			}
+		}
+
 		if(!player) {
 			points = points * -1;
 		}
-		
+
 		return points;
 	}
 }
