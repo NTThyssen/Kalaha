@@ -1,4 +1,4 @@
-package src;
+package src.src;
 import java.util.Scanner;
 
 public class KalahaGame {
@@ -25,6 +25,7 @@ public class KalahaGame {
         printGame();
         while(!gameOver){
             takeTurn();
+            //hej futte
             printGame();
         }
     }
