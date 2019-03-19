@@ -14,6 +14,10 @@ public class Gamestate {
         return board;
     }
 
+    public int getValueFromIndex(int index){
+        return board[index];
+    }
+
     public void setBoard(int[]  board){
         this.board = board;
     }
@@ -24,5 +28,13 @@ public class Gamestate {
 
     public void setPlayer(boolean player){
         this.player = player;
+    }
+
+    public boolean gameFinished(){
+        if(board[0] + board[7] == 72){
+            return true;
+        } else {
+            return false;
+        }
     }
 }
