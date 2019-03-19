@@ -1,5 +1,9 @@
 package src;
 
+public class AlphaBeta{
+
+}
+
 
 /*package game_logic;
 
