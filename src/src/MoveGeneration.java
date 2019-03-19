@@ -1,12 +1,14 @@
 package src;
 
 public class MoveGeneration {
-    private int[] gameState;
+    private Gamestate gamestate;
     private boolean playerTurn;
 
-    public MoveGeneration(int[] gameState){
-        this.gameState = gameState;
-        generateGameStates(generatesValidGameStates(gameState, true), true);
+    public MoveGeneration(int[] inputGame){
+        //this.gameState = gameState;
+        gamestate = new Gamestate(inputGame, true);
+
+        generateGameStates(generatesValidGameStates(gamestate.getBoard(), true), true);
 
     }
 
@@ -47,7 +49,7 @@ public class MoveGeneration {
     }
 
     public int[] takeTurn(boolean playerTurn, int chosenPit){
-        int[] tempGameState = gameState.clone();
+        int[] tempGameState = gamestate.getBoard().clone();
             int goalToAvoid, goodGoal;
             if(playerTurn){
             goalToAvoid = 7;
