@@ -1,4 +1,4 @@
-package src.src;
+package src;
 import java.util.Scanner;
 
 public class KalahaGame {
@@ -43,12 +43,7 @@ public class KalahaGame {
                 //last ball has been placed in the goal.
                 //and player 1 gets another turn.
                 turn = true;
-            }else if(pits[pitAfterMovement] == 1){
-                //last ball has been placed in empty pit
-                pits[pitAfterMovement] = 0;
-                pits[player1Goal] += pits[14-pitAfterMovement]+1;
-                pits[14-pitAfterMovement] = 0;
-            }
+            }else lastBallCheck(pitAfterMovement, player1Goal);
         }else{
             //Player 2's turn
             turn = true;
@@ -59,14 +54,20 @@ public class KalahaGame {
                 //last ball has been placed in the goal.
                 //and player 1 gets another turn.
                 turn = false;
-            }else if(pits[pitAfterMovement] == 1){
-                //last ball has been placed in empty pit
-                pits[pitAfterMovement] = 0;
-                pits[player2Goal] += pits[14-pitAfterMovement]+1;
-                pits[14-pitAfterMovement] = 0;
+            }else {
+                lastBallCheck(pitAfterMovement, player2Goal);
             }
         }
         checkGameState();
+    }
+
+    private void lastBallCheck(int pitAfterMovement, int player2Goal) {
+        if(pits[pitAfterMovement] == 1){
+            //last ball has been placed in empty pit
+            pits[pitAfterMovement] = 0;
+            pits[player2Goal] += pits[14-pitAfterMovement]+1;
+            pits[14-pitAfterMovement] = 0;
+        }
     }
 
     //distributes balls according to the rules
