@@ -4,5 +4,7 @@ public class Main {
         System.out.println("Hello kalaha");
         KalahaGame game = new KalahaGame();
         game.startGame();
+        MoveGeneration mover = new MoveGeneration(game.getPits());
+
     }
 }
