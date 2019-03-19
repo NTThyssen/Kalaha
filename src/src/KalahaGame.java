@@ -12,7 +12,7 @@ public class KalahaGame {
     private boolean turn = true; //true = player 1, false = player 2.
     private boolean gameOver = false;
     public KalahaGame(){
-
+        AI aiPlayer = new AI(pits);
     }
 
     //run this method to start a game.
@@ -25,7 +25,6 @@ public class KalahaGame {
         printGame();
         while(!gameOver){
             takeTurn();
-            //hej futte
             printGame();
         }
     }
@@ -96,7 +95,7 @@ public class KalahaGame {
         int in;
         do{
             in = input.nextInt();
-        }while((in <0 || in > 7));
+        }while((in <0 || in > 6));
         return in;
     }
     //Checks if the game has been won.
