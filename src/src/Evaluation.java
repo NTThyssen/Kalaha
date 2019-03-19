@@ -2,29 +2,27 @@ package src;
 
 public class Evaluation {
 
-	boolean player;		//true = player 1. false = player 2
-	int[] gamestate;
+	//boolean player;		//true = player 1. false = player 2
+	Gamestate gamestate;
 	
-	public Evaluation(boolean player, int[] gamestate) {
-		this.player = player;
+	public Evaluation(boolean player, Gamestate gamestate) {
 		this.gamestate = gamestate;
 	}
 	
 	public int evaluateGamestate(){
 
-
-		int points = gamestate[7]-gamestate[13];
-		if(player) {
-			if(gamestate[7] > 36) {
+		int points = gamestate.getValueFromIndex(7)-gamestate.getValueFromIndex(13);
+		if(gamestate.getPlayer()) {
+			if(gamestate.getValueFromIndex(7) > 36) {
 				points += 100;
 			}
 		} else {
-			if(gamestate[13] > 36){
+			if(gamestate.getValueFromIndex(13) > 36){
 				points +=100;
 			}
 		}
 
-		if(!player) {
+		if(!gamestate.getPlayer()) {
 			points = points * -1;
 		}
 
