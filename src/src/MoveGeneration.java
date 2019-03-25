@@ -12,6 +12,10 @@ public class MoveGeneration {
 
     }
 
+    public MoveGeneration(Gamestate inputGame) {
+        this.gamestate = inputGame;
+    }
+
     public boolean[] generatesValidGameStates(int[] gameState, boolean playerTurn){
         boolean[] validMoves= new boolean[6];
         int upperBound;
@@ -35,8 +39,8 @@ public class MoveGeneration {
         return validMoves;
     }
 
-    public int[][] generateGameStates(boolean[] validMoves, boolean playerTurn){
-        int[][] newGameStates = new int[6][];
+    public Gamestate[] generateGameStates(boolean[] validMoves, boolean playerTurn){
+        Gamestate[] newGameStates = new Gamestate[6];
         for(int i = 0; i<6; i++){
             System.out.println(validMoves[i]);
             if(validMoves[i]){
@@ -44,12 +48,12 @@ public class MoveGeneration {
                 printGame(newGameStates[i]);
             }
         }
-
         return newGameStates;
     }
 
-    public int[] takeTurn(boolean playerTurn, int chosenPit){
-        int[] tempGameState = gamestate.getBoard().clone();
+    public Gamestate takeTurn(boolean playerTurn, int chosenPit){
+        Gamestate tempGameState = new Gamestate(gamestate.getBoard().clone(), playerTurn);
+        int[] tempBoard = tempGameState.getBoard().clone();
             int goalToAvoid, goodGoal;
             if(playerTurn){
             goalToAvoid = 7;
@@ -63,31 +67,31 @@ public class MoveGeneration {
     }
 
 
-    private int[] moveBalls(int[] tempGameState, int chosenPit, int goalToAvoid, int goodGoal) {
-        int ballsToPlace = tempGameState[chosenPit];
-        tempGameState[chosenPit] = 0;
+    private Gamestate moveBalls(Gamestate tempGameState, int chosenPit, int goalToAvoid, int goodGoal) {
+        int ballsToPlace = tempGameState.getBoard()[chosenPit];
+        tempGameState.getBoard()[chosenPit] = 0;
         while(ballsToPlace != 0){
             chosenPit--;
             if(chosenPit == -1){
                 chosenPit = 13;
             }
             if(chosenPit != goalToAvoid){
-                tempGameState[chosenPit]++;
+                tempGameState.getBoard()[chosenPit]++;
                 ballsToPlace--;
             }
         }
-        if(tempGameState[chosenPit] == 1 && (chosenPit != 0 && chosenPit != 7)){
-            tempGameState[chosenPit] = 0;
-            tempGameState[goodGoal] = 1 + tempGameState[14-chosenPit];
-            tempGameState[chosenPit] = 0;
+        if(tempGameState.getBoard()[chosenPit] == 1 && (chosenPit != 0 && chosenPit != 7)){
+            tempGameState.getBoard()[chosenPit] = 0;
+            tempGameState.getBoard()[goodGoal] = 1 + tempGameState.getBoard()[14-chosenPit];
+            tempGameState.getBoard()[chosenPit] = 0;
         }
         return tempGameState;
     }
 
-    private void printGame(int[] gameToPrint){
-        System.out.println(" "+ gameToPrint[1]+ " " + gameToPrint[2]+ " "+ gameToPrint[3]+ " "+ gameToPrint[4]+ " "+ gameToPrint[5]+ " "+ gameToPrint[6]);
-        System.out.println(gameToPrint[0]+"           " + gameToPrint[7]);
-        System.out.println(" "+ gameToPrint[6+7]+ " " + gameToPrint[5+7]+ " "+ gameToPrint[4+7]+ " "+ gameToPrint[3+7]+ " "+ gameToPrint[2+7]+ " "+ gameToPrint[1+7]);
+    private void printGame(Gamestate gameToPrint){
+        System.out.println(" "+ gameToPrint.getBoard()[1]+ " " + gameToPrint.getBoard()[2]+ " "+ gameToPrint.getBoard()[3]+ " "+ gameToPrint.getBoard()[4]+ " "+ gameToPrint.getBoard()[5]+ " "+ gameToPrint.getBoard()[6]);
+        System.out.println(gameToPrint.getBoard()[0]+"           " + gameToPrint.getBoard()[7]);
+        System.out.println(" "+ gameToPrint.getBoard()[6+7]+ " " + gameToPrint.getBoard()[5+7]+ " "+ gameToPrint.getBoard()[4+7]+ " "+ gameToPrint.getBoard()[3+7]+ " "+ gameToPrint.getBoard()[2+7]+ " "+ gameToPrint.getBoard()[1+7]);
     }
 
 
