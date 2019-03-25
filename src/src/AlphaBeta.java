@@ -1,23 +1,51 @@
 package src;
+import java.util.*;
 
 public class AlphaBeta{
-    private int[] gameState;
-    private boolean minMax;
-    private  boolean player;
-    public AlphaBeta(int[] gameState, boolean minMax, boolean player){
-        this.gameState = gameState;
-        this.minMax = minMax;
+
+    private Gamestate gamestate;
+    private boolean player;     //true = player 1.   false = player 2
+    private Evaluation eva;
+
+    public AlphaBeta(Gamestate gamestate, boolean player){
+        this.gamestate = gamestate;
         this.player = player;
     }
 
+    public int runAlphaBeta(int alpha, int beta, Gamestate gamestate){
 
-    public int runAlphaBeta(int alpha, int beta){
+        //if node is leaf
+        if(gamestate.gameFinished()){
+            this.eva = new Evaluation(player, gamestate);
+            return eva.evaluateGamestate();
+        }
 
-        return 1;
+        MoveGeneration moveGenerator = new MoveGeneration(gamestate, player);
+        Gamestate[] childnodes = moveGenerator.generateGameStates();
+
+        int nextNode = 0;
+
+        //if current node is MAX
+        if(player == gamestate.player){
+            while(alpha < beta && nextNode < childnodes.length){
+                int V = runAlphaBeta(alpha, beta, childnodes[nextNode++]);
+                if(V > alpha){
+                    alpha = V;
+                }
+            }
+            return alpha;
+
+        //if current node is MIN
+        } else {
+            while(alpha < beta){
+                int V = runAlphaBeta(alpha, beta, childnodes[nextNode++]);
+                if(V < beta){
+                    beta = V;
+                }
+            }
+            return beta;
+        }
     }
-
-
-
 }
 
 
