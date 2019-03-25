@@ -1,7 +1,5 @@
 package src;
 
-import java.util.ArrayList;
-
 public class MoveGeneration {
     private Gamestate gamestate;
     private boolean[] validMoves;
@@ -36,13 +34,13 @@ public class MoveGeneration {
         return validMoves;
     }
 
-    public ArrayList<Gamestate> generateGameStates(){
-        ArrayList<Gamestate> newGameStates = new ArrayList<>();
-
+    public Gamestate[] generateGameStates(){
+        Gamestate[] newGameStates = new Gamestate[6];
         for(int i = 0; i<6; i++){
+        //    System.out.println(validMoves[i]);
             if(validMoves[i]){
-
-                newGameStates.add(takeTurn(playerTurn, i+1));
+                newGameStates[i] = takeTurn(playerTurn, i+1);
+                //printGame(newGameStates[i]);
             }
         }
         return newGameStates;
@@ -64,7 +62,6 @@ public class MoveGeneration {
 
 
     private Gamestate moveBalls(Gamestate tempGameState, int chosenPit, int goalToAvoid, int goodGoal) {
-        int temp = chosenPit;
         int ballsToPlace = tempGameState.getBoard()[chosenPit];
         tempGameState.getBoard()[chosenPit] = 0;
         while(ballsToPlace != 0){
@@ -88,9 +85,7 @@ public class MoveGeneration {
         if(chosenPit != goodGoal){
             tempGameState.setPlayer(!playerTurn);
         }else{
-            //System.out.println("player gets an extra turn. Player moved from pit nr " + temp);
-            //printGame(tempGameState);
-
+            System.out.println("player gets an extra turn.");
         }
         return tempGameState;
     }
