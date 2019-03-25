@@ -6,7 +6,12 @@ public class Main {
         Gamestate gamestate = new Gamestate(game.getPits(), true);
         game.startGame();
         MoveGeneration mover = new MoveGeneration(gamestate, true);
-        mover.generateGameStates();
-
+        Gamestate[] initialGameStates = mover.generateGameStates();
+        int[] abValues = new int[initialGameStates.length];
+        for(int i = 0; i < initialGameStates.length; i++){
+            AlphaBeta ab = new AlphaBeta(initialGameStates[i].player, 5);
+            abValues[i] = ab.runAlphaBeta(Integer.MIN_VALUE,Integer.MAX_VALUE , initialGameStates[i], 0);
+            System.out.println(abValues[i]);
+        }
     }
 }

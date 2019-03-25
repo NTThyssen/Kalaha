@@ -40,7 +40,7 @@ public class MoveGeneration {
             System.out.println(validMoves[i]);
             if(validMoves[i]){
                 newGameStates[i] = takeTurn(playerTurn, i+1);
-                printGame(newGameStates[i]);
+                //printGame(newGameStates[i]);
             }
         }
         return newGameStates;

@@ -3,19 +3,19 @@ import java.util.*;
 
 public class AlphaBeta{
 
-    private Gamestate gamestate;
     private boolean player;     //true = player 1.   false = player 2
     private Evaluation eva;
+    private int searchDepth;
 
-    public AlphaBeta(Gamestate gamestate, boolean player){
-        this.gamestate = gamestate;
+    public AlphaBeta(boolean player, int searchDepth){
         this.player = player;
+        this.searchDepth = searchDepth;
     }
 
-    public int runAlphaBeta(int alpha, int beta, Gamestate gamestate){
+    public int runAlphaBeta(int alpha, int beta, Gamestate gamestate, int currentDepth){
 
         //if node is leaf
-        if(gamestate.gameFinished()){
+        if(gamestate.gameFinished() ||  currentDepth == searchDepth){
             this.eva = new Evaluation(player, gamestate);
             return eva.evaluateGamestate();
         }
@@ -28,7 +28,7 @@ public class AlphaBeta{
         //if current node is MAX
         if(player == gamestate.player){
             while(alpha < beta && nextNode < childnodes.length){
-                int V = runAlphaBeta(alpha, beta, childnodes[nextNode++]);
+                int V = runAlphaBeta(alpha, beta, childnodes[nextNode++], ++currentDepth);
                 if(V > alpha){
                     alpha = V;
                 }
@@ -38,7 +38,7 @@ public class AlphaBeta{
         //if current node is MIN
         } else {
             while(alpha < beta){
-                int V = runAlphaBeta(alpha, beta, childnodes[nextNode++]);
+                int V = runAlphaBeta(alpha, beta, childnodes[nextNode++], ++currentDepth);
                 if(V < beta){
                     beta = V;
                 }
