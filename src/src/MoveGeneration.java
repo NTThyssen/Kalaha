@@ -8,9 +8,10 @@ public class MoveGeneration {
     public MoveGeneration(Gamestate inputGame, boolean player) {
         this.gamestate = inputGame;
         this.playerTurn = player;
+        validMoves = generateValidGameStates();
     }
 
-    private boolean[] generatesValidGameStates(){
+    private boolean[] generateValidGameStates(){
         boolean[] validMoves= new boolean[6];
         int upperBound;
         int lowerBound;
@@ -47,7 +48,6 @@ public class MoveGeneration {
 
     public Gamestate takeTurn(boolean playerTurn, int chosenPit){
         Gamestate tempGameState = new Gamestate(gamestate.getBoard().clone(), playerTurn);
-        int[] tempBoard = tempGameState.getBoard().clone();
             int goalToAvoid, goodGoal;
             if(playerTurn){
             goalToAvoid = 7;
@@ -73,11 +73,19 @@ public class MoveGeneration {
                 tempGameState.getBoard()[chosenPit]++;
                 ballsToPlace--;
             }
+
         }
+
         if(tempGameState.getBoard()[chosenPit] == 1 && (chosenPit != 0 && chosenPit != 7)){
             tempGameState.getBoard()[chosenPit] = 0;
             tempGameState.getBoard()[goodGoal] = 1 + tempGameState.getBoard()[14-chosenPit];
-            tempGameState.getBoard()[chosenPit] = 0;
+            tempGameState.getBoard()[14-chosenPit] = 0;
+        }
+
+        if(chosenPit != goodGoal){
+            tempGameState.setPlayer(!playerTurn);
+        }else{
+            System.out.println("player gets an extra turn.");
         }
         return tempGameState;
     }
