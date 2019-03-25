@@ -13,7 +13,7 @@ public class KalahaGame {
     private int[] pits = new int[14];
     private int player1Goal = 0;
     private int player2Goal = 7;
-    private boolean turn = true; //true = player 1, false = player 2.
+    public boolean turn = true; //true = player 1, false = player 2.
     private boolean gameOver = false;
     public KalahaGame(){
         AI aiPlayer = new AI(pits);
@@ -34,7 +34,7 @@ public class KalahaGame {
     }
 
     //method that takes a single turn, for one player.
-    private void takeTurn() {
+    public void takeTurn() {
         if(turn){
             //Player 1's turn.
             turn = false;
@@ -63,7 +63,7 @@ public class KalahaGame {
         }
         checkGameState();
     }
-
+    
     private void lastBallCheck(int pitAfterMovement, int player2Goal) {
         if(pits[pitAfterMovement] == 1){
             //last ball has been placed in empty pit
