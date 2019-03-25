@@ -2,21 +2,15 @@ package src;
 
 public class MoveGeneration {
     private Gamestate gamestate;
+    private boolean[] validMoves;
     private boolean playerTurn;
 
-    public MoveGeneration(int[] inputGame){
-        //this.gameState = gameState;
-        gamestate = new Gamestate(inputGame, true);
-
-        generateGameStates(generatesValidGameStates(gamestate.getBoard(), true), true);
-
-    }
-
-    public MoveGeneration(Gamestate inputGame) {
+    public MoveGeneration(Gamestate inputGame, boolean player) {
         this.gamestate = inputGame;
+        this.playerTurn = player;
     }
 
-    public boolean[] generatesValidGameStates(int[] gameState, boolean playerTurn){
+    private boolean[] generatesValidGameStates(){
         boolean[] validMoves= new boolean[6];
         int upperBound;
         int lowerBound;
@@ -29,7 +23,7 @@ public class MoveGeneration {
              lowerBound = 8;
         }
         for(int i = lowerBound; i <= upperBound; i++){
-            if(gameState[i] > 0){
+            if(gamestate.getBoard()[i] > 0){
                 validMoves[i-lowerBound] = true;
             }else {
                 validMoves[i-lowerBound] = false;
@@ -39,7 +33,7 @@ public class MoveGeneration {
         return validMoves;
     }
 
-    public Gamestate[] generateGameStates(boolean[] validMoves, boolean playerTurn){
+    public Gamestate[] generateGameStates(){
         Gamestate[] newGameStates = new Gamestate[6];
         for(int i = 0; i<6; i++){
             System.out.println(validMoves[i]);
