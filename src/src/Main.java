@@ -6,6 +6,7 @@ public class Main {
         Gamestate gamestate = new Gamestate(game.getPits(), true);
         game.startGame();
         MoveGeneration mover = new MoveGeneration(gamestate, true);
+        mover.generateGameStates();
 
     }
 }
