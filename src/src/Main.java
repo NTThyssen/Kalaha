@@ -5,11 +5,17 @@ import java.util.ArrayList;
 public class Main {
     public static void main(String[] args){
         System.out.println("Hello kalaha");
+
+        //Evaluation test
+        /*int[] asf = {5, 8, 0, 7, 7, 0, 7, 1, 7, 8, 8, 8, 9, 0};
+        Evaluation eva2 = new Evaluation(true, new Gamestate(asf, true));
+        System.out.println("eva2: " + eva2.evaluateGamestate()); */
         Player humanplayer = new Human();
         Player AIplayer = new AI();
         KalahaGame game = new KalahaGame(humanplayer, AIplayer);
         game.startGame();
-/*        int[] asf = {30, 1, 0, 0, 0, 0, 0, 30, 1, 0, 0, 0, 0, 0};
+
+        /*
         //Gamestate gamestate = new Gamestate(asf , true);
         Gamestate gamestate = new Gamestate(game.getPits(), true);
         MoveGeneration mover = new MoveGeneration(gamestate, true);

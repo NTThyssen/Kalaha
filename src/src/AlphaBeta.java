@@ -21,7 +21,7 @@ public class AlphaBeta {
             return eva.evaluateGamestate();
         }
 
-        MoveGeneration moveGenerator = new MoveGeneration(gamestate, player);
+        MoveGeneration moveGenerator = new MoveGeneration(gamestate);
         ArrayList<Gamestate> childnodes = moveGenerator.generateGameStates();
 
         int nextNode = 0;

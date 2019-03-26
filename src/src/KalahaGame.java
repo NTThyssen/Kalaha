@@ -1,4 +1,5 @@
 package src;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class KalahaGame {
@@ -11,7 +12,8 @@ public class KalahaGame {
     //keeping score
     //announcing a winner
     private int[] pits = new int[14];
-    private Gamestate gamestate = new Gamestate(pits, true);
+    int[] asf = {0, 0, 1, 0, 0, 10, 1, 0, 0, 0, 1, 7, 0, 1};
+    private Gamestate gamestate = new Gamestate(asf, true);
     private Player player1, player2;
     private boolean gameOver = false;
     public KalahaGame(Player player1, Player player2){
@@ -23,10 +25,10 @@ public class KalahaGame {
     //run this method to start a game.
     public void startGame(){
         //filling pits with balls.
-        printGame();
+        printGame(gamestate);
         while(!gameOver){
             takeTurn();
-            printGame();
+            printGame(gamestate);
         }
     }
 
@@ -38,72 +40,38 @@ public class KalahaGame {
             currentPit = player1.makeMove(gamestate);
         }else{
             System.out.println("Player 2, Choose a field on your side.");
-            currentPit = 14-player2.makeMove(gamestate);
+            currentPit =  player2.makeMove(gamestate);
 
         }
-        int pitAfterMovement = moveBalls(currentPit);
-        //rules
-        if(pitAfterMovement != gamestate.getMyGoal()){
-            //last ball has not been placed in the goal.
-            //and the turns are switched.
-            lastBallCheck(pitAfterMovement);
-            gamestate.switchTurn();
-        }
+
+        MoveGeneration mg = new MoveGeneration(gamestate);
+        ArrayList<Gamestate> nextMoves = mg.generateGameStates();
+        /*for(int i = 0; i < nextMoves.size(); i++){
+            if(nextMoves.get(i) != null){
+                printGame(nextMoves.get(i));
+            }else{
+                System.out.println("null");
+            }
+        }*/
+        System.out.println("currentPit: " + currentPit);
+        gamestate = nextMoves.get(currentPit-1);
+
         checkGameState();
-    }
-    
-    private void lastBallCheck(int pitAfterMovement) {
-        if(gamestate.getBoard()[pitAfterMovement] == 1){
-            //last ball has been placed in empty pit
-            gamestate.getBoard()[pitAfterMovement] = 0;
-            gamestate.getBoard()[gamestate.getMyGoal()] += gamestate.getBoard()[14-pitAfterMovement]+1;
-            gamestate.getBoard()[14-pitAfterMovement] = 0;
-        }
-    }
-
-    //distributes balls according to the rules
-    //and returns the last pit a ball was dropped in.
-    private int moveBalls(int currentPit){
-        int ballsToPlace = gamestate.getBoard()[currentPit];
-        gamestate.getBoard()[currentPit] = 0;
-        while(ballsToPlace != 0){
-            currentPit--;
-            //loop around the playing board.
-            if(currentPit == -1){
-                currentPit = 13;
-            }
-            //keep putting balls in the next pit until no balls are left.
-            if(currentPit != gamestate.getOpposingGoal()){
-                gamestate.getBoard()[currentPit]++;
-                ballsToPlace--;
-            }
-        }
-        return currentPit;
-    }
-    //method that makes sure inputted numbers are valid
-    //maybe delete?
-    private int getProperInput(){
-        Scanner input = new Scanner(System.in);
-        int in;
-        do{
-            in = input.nextInt();
-        }while((in <0 || in > 6));
-        return in;
     }
     //Checks if the game has been won.
     private void checkGameState() {
-        if(pits[gamestate.player1Goal] >= 36){
+        if(gamestate.getBoard()[gamestate.player1Goal] >= 36){
             gameOver = true;
             System.out.println("player 1 has won the game.");
-        }else if(pits[gamestate.player2Goal] >= 36){
+        }else if(gamestate.getBoard()[gamestate.player2Goal] >= 36){
             gameOver = true;
             System.out.println("player 2 has won the game.");
         }
     }
     //Prints the game state in a readable fashion.
-    private void printGame(){
-        System.out.println(" "+ pits[1]+ " " + pits[2]+ " "+ pits[3]+ " "+ pits[4]+ " "+ pits[5]+ " "+ pits[6]);
-        System.out.println(pits[gamestate.player1Goal]+"           " + pits[gamestate.player2Goal]);
-        System.out.println(" "+ pits[6+gamestate.player2Goal]+ " " + pits[5+gamestate.player2Goal]+ " "+ pits[4+gamestate.player2Goal]+ " "+ pits[3+gamestate.player2Goal]+ " "+ pits[2+gamestate.player2Goal]+ " "+ pits[1+gamestate.player2Goal]);
+    private void printGame(Gamestate gamestate){
+        System.out.println(" "+ gamestate.getBoard()[1]+ " " + gamestate.getBoard()[2]+ " "+ gamestate.getBoard()[3]+ " "+ gamestate.getBoard()[4]+ " "+ gamestate.getBoard()[5]+ " "+ gamestate.getBoard()[6]);
+        System.out.println(gamestate.getBoard()[gamestate.player1Goal]+"           " + gamestate.getBoard()[gamestate.player2Goal]);
+        System.out.println(" "+ gamestate.getBoard()[6+gamestate.player2Goal]+ " " + gamestate.getBoard()[5+gamestate.player2Goal]+ " "+ gamestate.getBoard()[4+gamestate.player2Goal]+ " "+ gamestate.getBoard()[3+gamestate.player2Goal]+ " "+ gamestate.getBoard()[2+gamestate.player2Goal]+ " "+ gamestate.getBoard()[1+gamestate.player2Goal]);
     }
 }

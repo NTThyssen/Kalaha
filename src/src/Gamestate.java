@@ -5,11 +5,18 @@ public class Gamestate {
     int[] board;
     int player1Goal = 0;
     int player2Goal = 7;
+    int myStart, myEnd;
     boolean player;
 
     public Gamestate(int[] board, boolean player){
         this.board = board;
         this.player = player;
+       // initBoard();
+    }
+
+    public Gamestate(boolean player){
+        this.player = player;
+        board = new int[14];
         initBoard();
     }
 
@@ -33,6 +40,22 @@ public class Gamestate {
             return player1Goal;
         }else{
             return player2Goal;
+        }
+    }
+
+    public int getMyStart(){
+        if(player){
+            return 1;
+        }else{
+            return 8;
+        }
+    }
+
+    public int getMyEnd(){
+        if(player){
+            return 6;
+        }else{
+            return 13;
         }
     }
 

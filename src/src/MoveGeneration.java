@@ -7,9 +7,9 @@ public class MoveGeneration {
     private boolean[] validMoves;
     private boolean playerTurn;
 
-    public MoveGeneration(Gamestate inputGame, boolean player) {
+    public MoveGeneration(Gamestate inputGame) {
         this.gamestate = inputGame;
-        this.playerTurn = player;
+        this.playerTurn = inputGame.player;
         validMoves = generateValidGameStates();
     }
 
@@ -39,11 +39,15 @@ public class MoveGeneration {
     public ArrayList<Gamestate> generateGameStates(){
         //Gamestate[] newGameStates = new Gamestate[6];
         ArrayList<Gamestate> newGameStates = new ArrayList<Gamestate>();
-        for(int i = 0; i<6; i++){
+        for(int i = 1; i<=6; i++){
         //    System.out.println(validMoves[i]);
-            if(validMoves[i]){
+            if(validMoves[i-1]){
                // newGameStates[i] = takeTurn(playerTurn, i+1);
-                newGameStates.add(takeTurn(playerTurn, i+1));
+                if(gamestate.player){
+                    newGameStates.add(takeTurn(playerTurn, i));
+                }else{
+                    newGameStates.add(takeTurn(playerTurn, (gamestate.player2Goal + i)));
+                }
                 //printGame(newGameStates[i]);
             } else {
                 newGameStates.add(null);
@@ -66,6 +70,14 @@ public class MoveGeneration {
         return tempGameState;
     }
 
+    private void lastBallCheck(int pitAfterMovement, Gamestate tempGamestate) {
+        if(tempGamestate.getBoard()[pitAfterMovement] == 1 && (pitAfterMovement >= tempGamestate.getMyStart() && pitAfterMovement <= tempGamestate.getMyEnd())){
+            //last ball has been placed in empty pit
+            tempGamestate.getBoard()[pitAfterMovement] = 0;
+            tempGamestate.getBoard()[tempGamestate.getMyGoal()] += tempGamestate.getBoard()[14-pitAfterMovement]+1;
+            tempGamestate.getBoard()[14-pitAfterMovement] = 0;
+        }
+    }
 
     private Gamestate moveBalls(Gamestate tempGameState, int chosenPit, int goalToAvoid, int goodGoal) {
         int ballsToPlace = tempGameState.getBoard()[chosenPit];
@@ -79,14 +91,9 @@ public class MoveGeneration {
                 tempGameState.getBoard()[chosenPit]++;
                 ballsToPlace--;
             }
-
         }
 
-        if(tempGameState.getBoard()[chosenPit] == 1 && (chosenPit != 0 && chosenPit != 7)){
-            tempGameState.getBoard()[chosenPit] = 0;
-            tempGameState.getBoard()[goodGoal] = 1 + tempGameState.getBoard()[14-chosenPit];
-            tempGameState.getBoard()[14-chosenPit] = 0;
-        }
+        lastBallCheck(chosenPit, tempGameState);
 
         if(chosenPit != goodGoal){
             tempGameState.setPlayer(!playerTurn);
