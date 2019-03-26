@@ -4,9 +4,9 @@ import java.util.ArrayList;
 
 public class AI implements Player{
 
-    public int makeMove(Gamestate gameState, boolean playerTurn){
+    public int makeMove(Gamestate gameState){
 
-        MoveGeneration mover = new MoveGeneration(gameState, playerTurn);
+        MoveGeneration mover = new MoveGeneration(gameState, gameState.player);
         ArrayList<Gamestate> initialGameStates = mover.generateGameStates();
         int[] abValues = new int[initialGameStates.size()];
         for(int i = 0; i < initialGameStates.size(); i++){

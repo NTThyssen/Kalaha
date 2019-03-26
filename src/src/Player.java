@@ -1,5 +1,5 @@
 package src;
 
 public interface Player {
-    public int makeMove(Gamestate gameState, boolean playerTurn);
+    public int makeMove(Gamestate gameState);
 }

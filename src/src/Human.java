@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 public class Human implements Player{
 
-    public int makeMove(Gamestate gameState, boolean playerTurn){
+    public int makeMove(Gamestate gameState){
 
         Scanner input = new Scanner(System.in);
 
