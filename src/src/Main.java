@@ -7,7 +7,7 @@ public class Main {
         System.out.println("Hello kalaha");
         KalahaGame game = new KalahaGame();
         game.startGame();
-        int[] asf = {30, 1, 0, 0, 0, 0, 0, 30, 1, 0, 0, 0, 0, 0};
+/*        int[] asf = {30, 1, 0, 0, 0, 0, 0, 30, 1, 0, 0, 0, 0, 0};
         //Gamestate gamestate = new Gamestate(asf , true);
         Gamestate gamestate = new Gamestate(game.getPits(), true);
         MoveGeneration mover = new MoveGeneration(gamestate, true);
@@ -28,15 +28,6 @@ public class Main {
             }
         }
         System.out.println("best choice was: " + index);
-
-        while(true){
-            if(game.turn){
-                game.takeTurn();
-            }else{
-
-            }
-        }
-
         /*int[] goodGameState = {1, 0, 7, 7, 7, 0, 6, 5, 7, 7, 7, 7, 7, 8};
 
         Evaluation eval = new Evaluation(true, new Gamestate(goodGameState, true));
