@@ -10,10 +10,14 @@ public class AI implements Player{
         ArrayList<Gamestate> initialGameStates = mover.generateGameStates();
         int[] abValues = new int[initialGameStates.size()];
         for(int i = 0; i < initialGameStates.size(); i++){
-            System.out.println("game " + i);
-            AlphaBeta ab = new AlphaBeta(initialGameStates.get(i).player, 21);
-            abValues[i] = ab.runAlphaBeta(Integer.MIN_VALUE,Integer.MAX_VALUE , initialGameStates.get(i), 0);
-            System.out.println("index: " + i + " value: " + abValues[i]);
+            if(initialGameStates.get(i) != null) {
+                System.out.println("game " + i);
+                AlphaBeta ab = new AlphaBeta(initialGameStates.get(i).player, 21);
+                abValues[i] = ab.runAlphaBeta(Integer.MIN_VALUE, Integer.MAX_VALUE, initialGameStates.get(i), 0);
+                System.out.println("index: " + (6-i) + " value: " + abValues[i]);
+            } else {
+                System.out.println("index: " + (6-i) + " invalid");
+            }
         }
         int min = 0;
         int index = 0;
@@ -23,7 +27,7 @@ public class AI implements Player{
                 index = i;
             }
         }
-        index++;
+        index = 6- index;
         System.out.println("best choice was: " + index);
 
         return index;

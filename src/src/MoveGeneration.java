@@ -45,6 +45,8 @@ public class MoveGeneration {
                // newGameStates[i] = takeTurn(playerTurn, i+1);
                 newGameStates.add(takeTurn(playerTurn, i+1));
                 //printGame(newGameStates[i]);
+            } else {
+                newGameStates.add(null);
             }
         }
         return newGameStates;
