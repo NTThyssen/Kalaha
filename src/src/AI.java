@@ -4,8 +4,6 @@ import java.util.ArrayList;
 
 public class AI implements Player{
 
-    public AI(Gamestate gameState){}
-
     public int makeMove(Gamestate gameState, boolean playerTurn){
 
         MoveGeneration mover = new MoveGeneration(gameState, playerTurn);
