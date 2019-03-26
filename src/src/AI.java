@@ -1,14 +1,15 @@
 package src;
 
-public class AI {
+public class AI implements Player{
     private int[] gameState;
 
     public AI(int[] gameState){
         this.gameState = gameState;
     }
 
-    public void aiMakeMove(){
+    public int makeMove(){
 
+        return 0;
     }
 
 

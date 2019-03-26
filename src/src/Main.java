@@ -8,8 +8,8 @@ public class Main {
         KalahaGame game = new KalahaGame();
         game.startGame();
         int[] asf = {30, 1, 0, 0, 0, 0, 0, 30, 1, 0, 0, 0, 0, 0};
-        Gamestate gamestate = new Gamestate(asf , true);
-        //Gamestate gamestate = new Gamestate(game.getPits(), true);
+        //Gamestate gamestate = new Gamestate(asf , true);
+        Gamestate gamestate = new Gamestate(game.getPits(), true);
         MoveGeneration mover = new MoveGeneration(gamestate, true);
         ArrayList<Gamestate> initialGameStates = mover.generateGameStates();
         int[] abValues = new int[initialGameStates.size()];
