@@ -25,6 +25,6 @@ public class AI implements Player{
         }
         System.out.println("best choice was: " + index);
 
-        return min;
+        return index;
     }
 }

@@ -5,7 +5,9 @@ import java.util.ArrayList;
 public class Main {
     public static void main(String[] args){
         System.out.println("Hello kalaha");
-        KalahaGame game = new KalahaGame();
+        Player humanplayer = new Human();
+        Player AIplayer = new AI();
+        KalahaGame game = new KalahaGame(humanplayer, AIplayer);
         game.startGame();
 /*        int[] asf = {30, 1, 0, 0, 0, 0, 0, 30, 1, 0, 0, 0, 0, 0};
         //Gamestate gamestate = new Gamestate(asf , true);

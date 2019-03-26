@@ -88,8 +88,6 @@ public class MoveGeneration {
 
         if(chosenPit != goodGoal){
             tempGameState.setPlayer(!playerTurn);
-        }else{
-            System.out.println("player gets an extra turn.");
         }
         return tempGameState;
     }

@@ -12,11 +12,11 @@ public class KalahaGame {
     //announcing a winner
     private int[] pits = new int[14];
     private Gamestate gamestate = new Gamestate(pits, true);
-    //private int player1Goal = 0;
-    //private int player2Goal = 7;
-    //public boolean turn = true; //true = player 1, false = player 2.
+    private Player player1, player2;
     private boolean gameOver = false;
-    public KalahaGame(){
+    public KalahaGame(Player player1, Player player2){
+        this.player1 = player1;
+        this.player2 = player2;
         //AI aiPlayer = new AI(pits);
     }
 
@@ -35,11 +35,11 @@ public class KalahaGame {
         int currentPit;
         if(gamestate.player){
             System.out.println("Player 1, Choose a field on your side.");
-            currentPit = getProperInput();
+            currentPit = player1.makeMove(gamestate);
         }else{
             System.out.println("Player 2, Choose a field on your side.");
+            currentPit = 14-player2.makeMove(gamestate);
 
-            currentPit = 14-getProperInput();
         }
         int pitAfterMovement = moveBalls(currentPit);
         //rules
@@ -47,7 +47,7 @@ public class KalahaGame {
             //last ball has not been placed in the goal.
             //and the turns are switched.
             lastBallCheck(pitAfterMovement);
-            gamestate.player = false;
+            gamestate.switchTurn();
         }
         checkGameState();
     }
