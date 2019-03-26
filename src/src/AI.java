@@ -23,6 +23,7 @@ public class AI implements Player{
                 index = i;
             }
         }
+        index++;
         System.out.println("best choice was: " + index);
 
         return index;
