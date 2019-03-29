@@ -14,15 +14,15 @@ public class AI implements Player{
                 //System.out.println("game " + i);
                 AlphaBeta ab = new AlphaBeta(gameState.player, 21); //skal måske ikke bruge !
                 abValues[i] = ab.runAlphaBeta(Integer.MIN_VALUE, Integer.MAX_VALUE, initialGameStates.get(i), 0);
-                System.out.println("index: " + (i) + " value: " + abValues[i] + " amount of balls in goal:" + initialGameStates.get(i).getBoard()[7]);
+                //System.out.println("index: " + (i) + " value: " + abValues[i] + " amount of balls in goal:" + initialGameStates.get(i).getBoard()[7]);
             } else {
-                System.out.println("index: " + (i) + " invalid");
+                //System.out.println("index: " + (i) + " invalid");
                 abValues[i]=Integer.MIN_VALUE;
             }
         }
         int index = findMAX(abValues);
         //index = 6- index;
-        System.out.println("best choice was: " + (6 - index));
+        System.out.println("AI chose: " + (7 - index));
 
         return index ;
     }
