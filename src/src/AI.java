@@ -12,7 +12,7 @@ public class AI implements Player{
         for(int i = 0; i < initialGameStates.size(); i++){
             if(initialGameStates.get(i) != null) {
                 //System.out.println("game " + i);
-                AlphaBeta ab = new AlphaBeta(gameState.player, 10); //skal måske ikke bruge !
+                AlphaBeta ab = new AlphaBeta(gameState.player, 21); //skal måske ikke bruge !
                 abValues[i] = ab.runAlphaBeta(Integer.MIN_VALUE, Integer.MAX_VALUE, initialGameStates.get(i), 0);
                 System.out.println("index: " + (i) + " value: " + abValues[i] + " amount of balls in goal:" + initialGameStates.get(i).getBoard()[7]);
             } else {

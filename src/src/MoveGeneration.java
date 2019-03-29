@@ -60,10 +60,10 @@ public class MoveGeneration {
         Gamestate tempGameState = new Gamestate(gamestate.getBoard().clone(), playerTurn);
 
         tempGameState = moveBalls(tempGameState, chosenPit);
-        checkForEmptySide();
-        return tempGameState;
+
+        return checkForEmptySide(tempGameState);
     }
-    public void checkForEmptySide(){
+    public Gamestate checkForEmptySide(Gamestate gamestate){
         int p1sum = 0;
         int p2sum = 0;
         for(int i = 1; i <= 6; i++){
@@ -84,7 +84,7 @@ public class MoveGeneration {
                 gamestate.getBoard()[i+gamestate.player2Goal] = 0;
             }
         }
-
+        return gamestate;
     }
 
     private void lastBallCheck(int pitAfterMovement, Gamestate tempGamestate) {

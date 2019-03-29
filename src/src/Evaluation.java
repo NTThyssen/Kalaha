@@ -15,14 +15,13 @@ public class Evaluation {
 	public int evaluateGamestate(){
 		int points = 0;
 
-			if(gamestate.getValueFromIndex(0) > 361) {
+			if(gamestate.getValueFromIndex(0) > 36) {
 				points +=10000;
 			}
 			for(int i = 1; i < 7; i++){
 				points+=gamestate.getBoard()[i]*pointsPerBallOnYourSide;
 			}
 			points+=(gamestate.getValueFromIndex(0)*pointsPerBallInYourPit);
-
 
 			if(gamestate.getValueFromIndex(7) > 36){
 				points -=10000;
@@ -32,11 +31,17 @@ public class Evaluation {
 			}
 			points-=(gamestate.getValueFromIndex(7)*pointsPerBallInYourPit);
 
-
-		if(player != gamestate.getPlayer()) {
+		if(!player) {
 			points = points * -1;
 		}
-
 		return points;
+	}
+
+	public int evaluateGamestate2(){
+
+
+
+
+		return 0;
 	}
 }
