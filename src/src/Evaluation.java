@@ -13,10 +13,9 @@ public class Evaluation {
 	}
 	
 	public int evaluateGamestate(){
-
 		int points = 0;
 
-			if(gamestate.getValueFromIndex(0) > 36) {
+			if(gamestate.getValueFromIndex(0) > 361) {
 				points +=10000;
 			}
 			for(int i = 1; i < 7; i++){

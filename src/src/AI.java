@@ -11,20 +11,20 @@ public class AI implements Player{
         int[] abValues = new int[initialGameStates.size()];
         for(int i = 0; i < initialGameStates.size(); i++){
             if(initialGameStates.get(i) != null) {
-                System.out.println("game " + i);
-                AlphaBeta ab = new AlphaBeta(!initialGameStates.get(i).player, 15); //skal måske ikke bruge !
+                //System.out.println("game " + i);
+                AlphaBeta ab = new AlphaBeta(gameState.player, 10); //skal måske ikke bruge !
                 abValues[i] = ab.runAlphaBeta(Integer.MIN_VALUE, Integer.MAX_VALUE, initialGameStates.get(i), 0);
-                System.out.println("index: " + (6-i) + " value: " + abValues[i]);
+                System.out.println("index: " + (i) + " value: " + abValues[i] + " amount of balls in goal:" + initialGameStates.get(i).getBoard()[7]);
             } else {
-                System.out.println("index: " + (6-i) + " invalid");
+                System.out.println("index: " + (i) + " invalid");
                 abValues[i]=Integer.MIN_VALUE;
             }
         }
         int index = findMAX(abValues);
-        index = 6- index;
-        System.out.println("best choice was: " + index);
+        //index = 6- index;
+        System.out.println("best choice was: " + (6 - index));
 
-        return index;
+        return index ;
     }
 
     private int findMAX(int[] abValues){
@@ -36,7 +36,7 @@ public class AI implements Player{
                 index = i;
             }
         }
-        return index;
+        return index+1;
     }
 
     private int findMIN(int[] abValues){

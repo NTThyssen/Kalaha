@@ -13,7 +13,7 @@ public class KalahaGame {
     //announcing a winner
     private int[] pits = new int[14];
     int[] asf = {0, 0, 1, 0, 0, 10, 1, 0, 0, 0, 1, 7, 0, 1};
-    private Gamestate gamestate = new Gamestate(asf, true);
+    private Gamestate gamestate = new Gamestate( true);
     private Player player1, player2;
     private boolean gameOver = false;
     public KalahaGame(Player player1, Player player2){
@@ -34,18 +34,19 @@ public class KalahaGame {
 
     //method that takes a single turn, for one player.
     public void takeTurn() {
+        MoveGeneration mg = new MoveGeneration(gamestate);
+        ArrayList<Gamestate> nextMoves = mg.generateGameStates();
         int currentPit;
         if(gamestate.player){
             System.out.println("Player 1, Choose a field on your side.");
             currentPit = player1.makeMove(gamestate);
+
         }else{
             System.out.println("Player 2, Choose a field on your side.");
             currentPit =  player2.makeMove(gamestate);
-
         }
+        gamestate = nextMoves.get(currentPit-1);
 
-        MoveGeneration mg = new MoveGeneration(gamestate);
-        ArrayList<Gamestate> nextMoves = mg.generateGameStates();
         /*for(int i = 0; i < nextMoves.size(); i++){
             if(nextMoves.get(i) != null){
                 printGame(nextMoves.get(i));
@@ -53,8 +54,7 @@ public class KalahaGame {
                 System.out.println("null");
             }
         }*/
-        System.out.println("currentPit: " + currentPit);
-        gamestate = nextMoves.get(currentPit-1);
+
 
         checkGameState();
     }
