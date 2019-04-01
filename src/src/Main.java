@@ -11,10 +11,54 @@ public class Main {
         Evaluation eva2 = new Evaluation(true, new Gamestate(asf, true));
         System.out.println("eva2: " + eva2.evaluateGamestate()); */
         Player humanplayer = new Human();
-        Player AIplayer = new AI();
-        //KalahaGame game = new KalahaGame(humanplayer, AIplayer);
-        KalahaGame game = new KalahaGame(AIplayer, AIplayer);
-        game.startGame();
+        Player AI1 = new AI();
+        //Player AI2 = new AI(1,10);
+        //KalahaGame game = new KalahaGame(humanplayer, AI1);
+        //KalahaGame game = new KalahaGame(AI1, AI2);
+        //game.startGame();
+
+
+
+        ArrayList<AI> allAI = new ArrayList<AI>();
+
+        for(int i = 1; i <= 5; i++){
+            for(int j = 1; j <= 5; j++){
+                allAI.add(new AI(i, j));
+            }
+        }
+
+        int maxWins = 0;
+        int pitID = 0;
+        int sideID = 0;
+        int pitID2 = 0;
+        int sideID2 = 0;
+        int minWins = 105;
+
+        for(AI i : allAI){
+            int myWins = 0;
+            for(AI j : allAI){
+                KalahaGame tempGame = new KalahaGame(i, j);
+                System.out.println(i.pointsPerBallInYourPit + " " + i.pointsPerBallOnYourSide + " vs " + j.pointsPerBallInYourPit + " " + j.pointsPerBallOnYourSide);
+                if(tempGame.startGame() == 1){
+                    myWins++;
+                }
+            }
+            if(myWins > maxWins){
+                maxWins = myWins;
+                pitID = i.getPointsPerBallInYourPit();
+                sideID = i.getPointsPerBallOnYourSide();
+            }
+            if(myWins < minWins){
+                minWins = myWins;
+                pitID2 = i.getPointsPerBallInYourPit();
+                sideID2 = i.getPointsPerBallOnYourSide();
+            }
+        }
+
+        System.out.println("The best AI was pitID=" + pitID + " sideID=" + sideID + " with " + maxWins + " wins");
+        System.out.println("The worst AI was pitID=" + pitID2 + " sideID=" + sideID2 + " with " + minWins + " wins");
+
+
 
         /*
         //Gamestate gamestate = new Gamestate(asf , true);

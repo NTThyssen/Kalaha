@@ -27,7 +27,7 @@ public class AI implements Player{
         for(int i = 0; i < initialGameStates.size(); i++){
             if(initialGameStates.get(i) != null) {
                 //System.out.println("game " + i);
-                AlphaBeta ab = new AlphaBeta(gameState.player, 21); //skal måske ikke bruge !
+                AlphaBeta ab = new AlphaBeta(gameState.player, 20); //skal måske ikke bruge !
                 abValues[i] = ab.runAlphaBeta(Integer.MIN_VALUE, Integer.MAX_VALUE, initialGameStates.get(i), 0, pointsPerBallInYourPit, pointsPerBallOnYourSide);
                 //System.out.println("index: " + (i) + " value: " + abValues[i] + " amount of balls in goal:" + initialGameStates.get(i).getBoard()[7]);
             } else {
@@ -37,7 +37,7 @@ public class AI implements Player{
         }
         int index = findMAX(abValues);
         //index = 6- index;
-        System.out.println("AI chose: " + (7 - index));
+     //   System.out.println("AI chose: " + (7 - index));
 
         return index ;
     }
@@ -64,5 +64,13 @@ public class AI implements Player{
             }
         }
         return index;
+    }
+
+    public int getPointsPerBallOnYourSide(){
+        return pointsPerBallOnYourSide;
+    }
+
+    public int getPointsPerBallInYourPit(){
+        return pointsPerBallInYourPit;
     }
 }

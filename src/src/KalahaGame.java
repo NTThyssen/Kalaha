@@ -11,6 +11,7 @@ public class KalahaGame {
     //two players taking turns
     //keeping score
     //announcing a winner
+    int playerVictory = 0; //0 = no winner, 1 = player1 wins, 2 = player2 wins
     private int[] pits = new int[14];
     int[] asf = {0, 0, 1, 0, 0, 10, 1, 0, 0, 0, 1, 7, 0, 1};
     private Gamestate gamestate = new Gamestate( true);
@@ -23,13 +24,17 @@ public class KalahaGame {
     }
 
     //run this method to start a game.
-    public void startGame(){
+    public int startGame(){
         //filling pits with balls.
-        printGame(gamestate);
+        int turns = 0;
+ //       printGame(gamestate);
         while(!gameOver){
             takeTurn();
-            printGame(gamestate);
+   //         printGame(gamestate);
+            turns++;
         }
+        System.out.println("turns in this game: " + turns);
+        return playerVictory;
     }
 
     //method that takes a single turn, for one player.
@@ -38,11 +43,11 @@ public class KalahaGame {
         ArrayList<Gamestate> nextMoves = mg.generateGameStates();
         int currentPit;
         if(gamestate.player){
-            System.out.println("Player 1, Choose a field on your side.");
+       //     System.out.println("Player 1, Choose a field on your side.");
             currentPit = player1.makeMove(gamestate);
 
         }else{
-            System.out.println("Player 2, Choose a field on your side.");
+      //      System.out.println("Player 2, Choose a field on your side.");
             currentPit =  player2.makeMove(gamestate);
         }
         gamestate = nextMoves.get(currentPit-1);
@@ -60,12 +65,19 @@ public class KalahaGame {
     }
     //Checks if the game has been won.
     private void checkGameState() {
-        if(gamestate.getBoard()[gamestate.player1Goal] >= 36){
+        if(gamestate.getBoard()[gamestate.player1Goal] > 36){
             gameOver = true;
-            System.out.println("player 1 has won the game.");
-        }else if(gamestate.getBoard()[gamestate.player2Goal] >= 36){
+            playerVictory = 1;
+    //        System.out.println("player 1 has won the game.");
+        }else if(gamestate.getBoard()[gamestate.player2Goal] > 36){
             gameOver = true;
-            System.out.println("player 2 has won the game.");
+            playerVictory = 2;
+    //        System.out.println("player 2 has won the game.");
+        } else if(gamestate.getBoard()[gamestate.player1Goal] == 36 &&
+                    gamestate.getBoard()[gamestate.player2Goal] == 36){
+            gameOver = true;
+            playerVictory = 0;
+        //    System.out.println("The game was a tie");
         }
     }
     //Prints the game state in a readable fashion.
