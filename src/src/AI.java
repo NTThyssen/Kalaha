@@ -4,6 +4,21 @@ import java.util.ArrayList;
 
 public class AI implements Player{
 
+    int pointsPerBallOnYourSide;
+    int pointsPerBallInYourPit;
+
+    //Default Constructor with the best performing values
+    public AI(){
+        this.pointsPerBallInYourPit = 5;
+        this.pointsPerBallOnYourSide = 1;
+    }
+
+    //Constructor for testing variations of the AI
+    public AI(int pointsPerBallInYourPit, int pointsPerBallOnYourSide){
+        this.pointsPerBallInYourPit = pointsPerBallInYourPit;
+        this.pointsPerBallOnYourSide = pointsPerBallOnYourSide;
+    }
+
     public int makeMove(Gamestate gameState){
 
         MoveGeneration mover = new MoveGeneration(gameState);
@@ -13,7 +28,7 @@ public class AI implements Player{
             if(initialGameStates.get(i) != null) {
                 //System.out.println("game " + i);
                 AlphaBeta ab = new AlphaBeta(gameState.player, 21); //skal måske ikke bruge !
-                abValues[i] = ab.runAlphaBeta(Integer.MIN_VALUE, Integer.MAX_VALUE, initialGameStates.get(i), 0);
+                abValues[i] = ab.runAlphaBeta(Integer.MIN_VALUE, Integer.MAX_VALUE, initialGameStates.get(i), 0, pointsPerBallInYourPit, pointsPerBallOnYourSide);
                 //System.out.println("index: " + (i) + " value: " + abValues[i] + " amount of balls in goal:" + initialGameStates.get(i).getBoard()[7]);
             } else {
                 //System.out.println("index: " + (i) + " invalid");

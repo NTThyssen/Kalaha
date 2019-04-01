@@ -12,7 +12,8 @@ public class Main {
         System.out.println("eva2: " + eva2.evaluateGamestate()); */
         Player humanplayer = new Human();
         Player AIplayer = new AI();
-        KalahaGame game = new KalahaGame(humanplayer, AIplayer);
+        //KalahaGame game = new KalahaGame(humanplayer, AIplayer);
+        KalahaGame game = new KalahaGame(AIplayer, AIplayer);
         game.startGame();
 
         /*

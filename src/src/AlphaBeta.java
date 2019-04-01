@@ -13,11 +13,11 @@ public class AlphaBeta {
         this.searchDepth = searchDepth;
     }
 
-    public int runAlphaBeta(int alpha, int beta, Gamestate gamestate, int currentDepth) {
+    public int runAlphaBeta(int alpha, int beta, Gamestate gamestate, int currentDepth, int pointsPerBallInYourPit, int pointsPerBallOnYourSide) {
 
         //if node is leaf
         if (gamestate.gameFinished() || currentDepth >= searchDepth) {
-            this.eva = new Evaluation(player, gamestate);
+            this.eva = new Evaluation(player, gamestate, pointsPerBallInYourPit, pointsPerBallInYourPit);
             return eva.evaluateGamestate();
         }
 
@@ -30,7 +30,7 @@ public class AlphaBeta {
         if (player == gamestate.player) {
             while (alpha < beta && nextNode < childnodes.size()) {
                 if (childnodes.get(nextNode) != null) {
-                    int V = runAlphaBeta(alpha, beta, childnodes.get(nextNode++), ++currentDepth);
+                    int V = runAlphaBeta(alpha, beta, childnodes.get(nextNode++), ++currentDepth, pointsPerBallInYourPit, pointsPerBallOnYourSide);
                     if (V > alpha) {
                         alpha = V;
                     }
@@ -44,7 +44,7 @@ public class AlphaBeta {
         } else {
             while (alpha < beta && nextNode < childnodes.size()) {
                 if(childnodes.get(nextNode) != null){
-                    int V = runAlphaBeta(alpha, beta, childnodes.get(nextNode++), ++currentDepth);
+                    int V = runAlphaBeta(alpha, beta, childnodes.get(nextNode++), ++currentDepth, pointsPerBallInYourPit, pointsPerBallOnYourSide);
                     if (V < beta) {
                         beta = V;
                     }

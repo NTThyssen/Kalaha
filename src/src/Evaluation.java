@@ -4,12 +4,14 @@ public class Evaluation {
 
 	boolean player;		//true = player 1. false = player 2
 	Gamestate gamestate;
-	final int pointsPerBallOnYourSide = 1;
-	final int pointsPerBallInYourPit = 5;
+	int pointsPerBallOnYourSide;
+	int pointsPerBallInYourPit;
 	
-	public Evaluation(boolean player, Gamestate gamestate) {
+	public Evaluation(boolean player, Gamestate gamestate, int pointsPerBallInYourPit, int pointsPerBallOnYourSide) {
 		this.gamestate = gamestate;
 		this.player = player;
+		this.pointsPerBallInYourPit = pointsPerBallInYourPit;
+		this.pointsPerBallOnYourSide = pointsPerBallOnYourSide;
 	}
 	
 	public int evaluateGamestate(){
