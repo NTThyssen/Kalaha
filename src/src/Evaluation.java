@@ -38,12 +38,4 @@ public class Evaluation {
 		}
 		return points;
 	}
-
-	public int evaluateGamestate2(){
-
-
-
-
-		return 0;
-	}
 }

@@ -37,18 +37,14 @@ public class MoveGeneration {
     }
 
     public ArrayList<Gamestate> generateGameStates(){
-        //Gamestate[] newGameStates = new Gamestate[6];
         ArrayList<Gamestate> newGameStates = new ArrayList<>();
         for(int i = 1; i<=6; i++){
-        //    System.out.println(validMoves[i]);
             if(validMoves[i-1]){
-               // newGameStates[i] = takeTurn(playerTurn, i+1);
                 if(gamestate.player){
                     newGameStates.add(takeTurn(playerTurn, i));
                 }else{
                     newGameStates.add(takeTurn(playerTurn, (gamestate.player2Goal + i)));
                 }
-                //printGame(newGameStates[i]);
             } else {
                 newGameStates.add(null);
             }

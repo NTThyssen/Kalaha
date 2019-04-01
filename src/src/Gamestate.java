@@ -5,7 +5,6 @@ public class Gamestate {
     int[] board;
     int player1Goal = 0;
     int player2Goal = 7;
-    int myStart, myEnd;
     boolean player;
 
     public Gamestate(int[] board, boolean player){
@@ -59,9 +58,6 @@ public class Gamestate {
         }
     }
 
-    public void switchTurn(){
-        player = !player;
-    }
 
     public int[] getBoard(){
         return board;
@@ -69,14 +65,6 @@ public class Gamestate {
 
     public int getValueFromIndex(int index){
         return board[index];
-    }
-
-    public void setBoard(int[]  board){
-        this.board = board;
-    }
-
-    public boolean getPlayer(){
-        return player;
     }
 
     public void setPlayer(boolean player){
